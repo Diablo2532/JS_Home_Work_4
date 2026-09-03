@@ -21,3 +21,19 @@ const secondVal = Number(prompt("Введіть число друге :"));
 
 const result = funcMinMax(firstVal,secondVal);
 console.log('result:', result);
+function nameOfNumber() {
+  const input = prompt("Прошу подати число:");
+  const value = Number(input);
+
+  if (input === null || input.trim() === "" || !Number.isFinite(value)) {
+    alert("Це не число");
+  } else if (value > 0) {
+    alert("Додатнє");
+  } else if (value < 0) {
+    alert("Від'ємне");
+  } else {
+    alert("Нуль");
+  }
+}
+
+nameOfNumber();
