@@ -19,8 +19,9 @@ function funcMinMax(first, second) {
 const firstVal = Number(prompt("Введіть число перше:"));
 const secondVal = Number(prompt("Введіть число друге :"));
 
-const result = funcMinMax(firstVal,secondVal);
-console.log('result:', result);
+const result_1 = funcMinMax(firstVal,secondVal);
+console.log('result:', result_1);
+
 function nameOfNumber() {
   const input = prompt("Прошу подати число:");
   const value = Number(input);
@@ -37,3 +38,12 @@ function nameOfNumber() {
 }
 
 nameOfNumber();
+function isDivisorOf100(number) {
+  const status = Number.isFinite(number) && number !== 0 && 100 % number === 0;
+  return status;
+}
+
+const value = Number(prompt("Подайте число:"));
+const result_2 = isDivisorOf100(value);
+
+console.log("Число є дільником 100:", result_2);
