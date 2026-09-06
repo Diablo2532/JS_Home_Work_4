@@ -1,59 +1,216 @@
+/**
+ * Порівнює два значення та повертає більше з них.
+ *
+ * Функція приймає значення будь-яких типів.
+ * Якщо типи різні, значення не є скінченними числами
+ * або значення рівні — повертає null.
+ *
+ * @param {*} first Перше значення.
+ * @param {*} second Друге значення.
+ * @returns {*} Більше значення або null.
+ */
 function funcMinMax(first, second) {
   if (typeof first !== typeof second) {
     return null;
   }
+
   if (
     typeof first === "number" &&
     (!Number.isFinite(first) || !Number.isFinite(second))
   ) {
     return null;
   }
+
   if (first > second) {
     return first;
   }
+
   if (first < second) {
     return second;
   }
+
   return null;
 }
-const firstVal = Number(prompt("Введіть число перше:"));
-const secondVal = Number(prompt("Введіть число друге :"));
+/**
+ * Перевіряє функцію funcMinMax
+ * на різних типах даних.
+ *
+ * Користувач вводить два значення,
+ * а програма самостійно визначає їх тип.
+ *
+ * @returns {*} Результат виконання функції.
+ */
+function testFuncMinMax() {
+  const input_1 = prompt("Введіть перше значення:");
+  const input_2 = prompt("Введіть друге значення:");
 
-const result_1 = funcMinMax(firstVal,secondVal);
-console.log('result_1:', result_1);
+  function convertValue(input) {
+    if (input === null) {
+      return null;
+    }
 
-function nameOfNumber() {
-  const input = prompt("Прошу подати число:");
+    if (input === "true") {
+      return true;
+    }
+
+    if (input === "false") {
+      return false;
+    }
+
+    if (input.trim() !== "" && Number.isFinite(Number(input))) {
+      return Number(input);
+    }
+
+    return input;
+  }
+
+  const first = convertValue(input_1);
+  const second = convertValue(input_2);
+
+  const result = funcMinMax(first, second);
+
+  console.log("Результат funcMinMax:", result);
+
+  return result;
+}
+
+// Перевірка funcMinMax
+testFuncMinMax();
+
+
+/**
+ * Перевіряє введене користувачем значення.
+ *
+ * @param {string|null} input Значення, отримане від prompt.
+ * @returns {number|null} Число або null, якщо введення некоректне.
+ */
+function getNumber(input) {
+  if (input === null || input.trim() === "") {
+    return null;
+  }
+
   const value = Number(input);
 
-  if (input === null || input.trim() === "" || !Number.isFinite(value)) {
-    alert("Це не число");
-  } else if (value > 0) {
-    alert("Додатнє");
-  } else if (value < 0) {
-    alert("Від'ємне");
-  } else {
-    alert("Нуль");
+  if (!Number.isFinite(value)) {
+    return null;
   }
+
+  return value;
 }
 
-nameOfNumber();
+/**
+ * Визначає знак числа.
+ *
+ * @param {number} value Число для перевірки.
+ * @returns {string} Додатнє, від'ємне або нуль.
+ */
+function nameOfNumber(value) {
+  if (value > 0) {
+    return "Додатнє";
+  }
+
+  if (value < 0) {
+    return "Від'ємне";
+  }
+
+  return "Нуль";
+}
+
+/**
+ * Перевіряє, чи є число дільником 100.
+ *
+ * @param {number} number Число для перевірки.
+ * @returns {boolean} true, якщо число є дільником 100.
+ */
 function isDivisorOf100(number) {
-  const status = Number.isFinite(number) && number !== 0 && 100 % number === 0;
-  return status;
+  return (
+    Number.isFinite(number) &&
+    number !== 0 &&
+    100 % number === 0
+  );
 }
 
-const value = Number(prompt("Подайте число:"));
-const result_2 = isDivisorOf100(value);
-
-console.log("Число є дільником 100:", result_2);
+/**
+ * Перевіряє, чи можна побудувати трикутник
+ * з трьома заданими сторонами.
+ *
+ * @param {number} a Перша сторона.
+ * @param {number} b Друга сторона.
+ * @param {number} c Третя сторона.
+ * @returns {boolean} true, якщо трикутник існує.
+ */
 function canFormTriangle(a = 3, b = 4, c = 5) {
-  return (Number.isFinite(a) && Number.isFinite(b) && Number.isFinite(c) &&a > 0 && b > 0 && c > 0 && a + b > c && a + c > b && b + c > a);
+  return (
+    Number.isFinite(a) &&
+    Number.isFinite(b) &&
+    Number.isFinite(c) &&
+    a > 0 &&
+    b > 0 &&
+    c > 0 &&
+    a + b > c &&
+    a + c > b &&
+    b + c > a
+  );
 }
-const firstSide = Number(prompt("Введіть першу сторону:"));
-const secondSide = Number(prompt("Введіть другу сторону:"));
-const thirdSide = Number(prompt("Введіть третю сторону:"));
 
-const result_3 = canFormTriangle(firstSide, secondSide, thirdSide);
+/**
+ * Перевіряє функцію, яка приймає одне число.
+ *
+ * @param {string} message Повідомлення для prompt.
+ * @param {Function} callback Функція, яку потрібно перевірити.
+ * @returns {*} Результат виконання функції.
+ */
+function testFunction(message, callback) {
+  const input = prompt(message);
+  const value = getNumber(input);
 
-console.log("Трикутник існує:", result_3);
+  if (value === null) {
+    console.log("Помилка: введено некоректне число.");
+    return null;
+  }
+
+  const result = callback(value);
+
+  console.log("Результат:", result);
+
+  return result;
+}
+
+// Перевірка nameOfNumber
+testFunction(
+  "Введіть число для визначення знака:",
+  nameOfNumber
+);
+
+// Перевірка isDivisorOf100
+testFunction(
+  "Введіть число для перевірки дільника 100:",
+  isDivisorOf100
+);
+
+
+/**
+ * Перевіряє функцію, яка приймає три числа.
+ *
+ * @param {Function} callback Функція, яку потрібно перевірити.
+ * @returns {*} Результат виконання функції.
+ */
+function testTriangle(callback) {
+  const a = getNumber(prompt("Введіть першу сторону:"));
+  const b = getNumber(prompt("Введіть другу сторону:"));
+  const c = getNumber(prompt("Введіть третю сторону:"));
+
+  if (a === null || b === null || c === null) {
+    console.log("Помилка: введено некоректну сторону.");
+    return null;
+  }
+
+  const result = callback(a, b, c);
+
+  console.log("Результат:", result);
+
+  return result;
+}
+
+// Перевірка canFormTriangle
+testTriangle(canFormTriangle);
